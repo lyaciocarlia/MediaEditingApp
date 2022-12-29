@@ -27,34 +27,40 @@ class MediaEditingAppViewController: UIViewController,PKCanvasViewDelegate, PKTo
             dropZone.addInteraction(UIDropInteraction(delegate: self))
         }
     }
+    
     var imageFetcher : ImageFetcher!
     
     @IBAction func saveImage(_ sender: UIBarButtonItem) {
         
-        UIGraphicsBeginImageContextWithOptions(drawingArea.bounds.size, false, UIScreen.main.scale)
-        
-        drawingArea.drawHierarchy(in: drawingArea.bounds, afterScreenUpdates: true)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        if image != nil{
-            PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.creationRequestForAsset(from: image!)},
-                                                   completionHandler: { succes, error in
-                //hhjg
+        let drawing = self.drawingArea.drawing.image(from: self.drawingArea.bounds, scale: 0)
+        if let markedupImage = self.saveImage(drawing: drawing){
+            PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.creationRequestForAsset(from: markedupImage)}, completionHandler: { succes, error in
+                // --
             })
         }
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        self.navigationController?.popViewController(animated: true)
     }
-   
+    
+    func saveImage(drawing : UIImage) -> UIImage? {
+        let bottomImage = self.workspace.backgroundImage!
+        let newImage = autoreleasepool { () -> UIImage in
+            UIGraphicsBeginImageContextWithOptions(self.drawingArea!.frame.size, false, 0.0)
+            bottomImage.draw(in: CGRect(origin: CGPoint.zero, size: self.drawingArea!.frame.size))
+            drawing.draw(in: CGRect(origin: CGPoint.zero, size: self.drawingArea!.frame.size))
+            let createdImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return createdImage!
+        }
+        return newImage
+    }
+    
     @IBAction func addImage(_ sender: UIBarButtonItem) {
-        
         let vs = UIImagePickerController()
         vs.sourceType = .photoLibrary
         vs.delegate = self
         present(vs, animated: true)
     }
-    }
+}
 
 // MARK: lifecycle
 
@@ -86,11 +92,9 @@ extension MediaEditingAppViewController{
 extension MediaEditingAppViewController{
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
         let image = info[UIImagePickerController.InfoKey.originalImage]
         workspace.backgroundImage = image as? UIImage
         picker.dismiss(animated: true)
-        
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
@@ -102,32 +106,30 @@ extension MediaEditingAppViewController{
 extension MediaEditingAppViewController{
     
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
-           return session.canLoadObjects(ofClass: NSURL.self) && session.canLoadObjects(ofClass: UIImage.self)
-       }
-       
-       func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
-           return UIDropProposal(operation: .copy)
-       }
-      
-      
-       
-       func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
-           imageFetcher = ImageFetcher(){ (url, image) in
-                          DispatchQueue.main.async {
-                              self.workspace.backgroundImage = image
-                          }
-                      }
-           
-           session.loadObjects(ofClass: NSURL.self){ nsurls in
-               if let url = nsurls.first as? URL{
-                   self.imageFetcher.fetch(url)
-               }
-           }
-           session.loadObjects(ofClass: UIImage.self){ images in
-               if let image = images.first as? UIImage{
-                   self.imageFetcher.backup = image
-               }
-           }
-
-       }
+        return session.canLoadObjects(ofClass: NSURL.self) && session.canLoadObjects(ofClass: UIImage.self)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        return UIDropProposal(operation: .copy)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        imageFetcher = ImageFetcher(){ (url, image) in
+            DispatchQueue.main.async {
+                self.workspace.backgroundImage = image
+                self.drawingArea.isOpaque = true
+            }
+        }
+        
+        session.loadObjects(ofClass: NSURL.self){ nsurls in
+            if let url = nsurls.first as? URL{
+                self.imageFetcher.fetch(url)
+            }
+        }
+        session.loadObjects(ofClass: UIImage.self){ images in
+            if let image = images.first as? UIImage{
+                self.imageFetcher.backup = image
+            }
+        }
+    }
 }
