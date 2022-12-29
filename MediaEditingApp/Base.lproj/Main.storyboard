@@ -1,24 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8fK-KT-9BB">
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Media Editing App View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MediaEditingAppViewController" customModule="MediaEditingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZw-1x-6A1">
+                                <rect key="frame" x="0.0" y="74" width="1024" height="1272"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pr-Cy-8dx" customClass="WorkspaceView" customModule="MediaEditingApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1272"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FmD-2w-Ok6" customClass="PKCanvasView">
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1272"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="9pr-Cy-8dx" firstAttribute="leading" secondItem="fZw-1x-6A1" secondAttribute="leading" id="2KR-xN-7jN"/>
+                                    <constraint firstAttribute="trailing" secondItem="9pr-Cy-8dx" secondAttribute="trailing" id="Ak4-CJ-VTN"/>
+                                    <constraint firstAttribute="bottom" secondItem="9pr-Cy-8dx" secondAttribute="bottom" id="RvH-XS-8wf"/>
+                                    <constraint firstItem="9pr-Cy-8dx" firstAttribute="top" secondItem="fZw-1x-6A1" secondAttribute="top" id="pSF-sY-leQ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fZw-1x-6A1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="JfT-V6-nfJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fZw-1x-6A1" secondAttribute="trailing" id="c3m-5f-5L7"/>
+                            <constraint firstItem="fZw-1x-6A1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="sbd-vx-HEW"/>
+                            <constraint firstItem="fZw-1x-6A1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tMu-MT-xP7"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="5wD-zR-GnA">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="save" id="G3B-49-nVE">
+                                <connections>
+                                    <action selector="saveImage:" destination="BYZ-38-t0r" id="W8K-hw-UVf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="photo.on.rectangle" catalog="system" id="hDK-2t-w9U">
+                                <connections>
+                                    <action selector="addImage:" destination="BYZ-38-t0r" id="oko-w8-yzS"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="drawingArea" destination="FmD-2w-Ok6" id="hhh-Pz-wTM"/>
+                        <outlet property="dropZone" destination="fZw-1x-6A1" id="u8w-z3-O1X"/>
+                        <outlet property="workspace" destination="9pr-Cy-8dx" id="YK6-2a-mun"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="863.0859375" y="3.9531478770131767"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rad-5e-vde">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8fK-KT-9BB" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xtc-03-KFN">
+                        <rect key="frame" x="0.0" y="24" width="1024" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="fkS-sQ-4L4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v2a-0U-UkK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.6953125" y="3.9531478770131767"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="photo.on.rectangle" catalog="system" width="128" height="98"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
