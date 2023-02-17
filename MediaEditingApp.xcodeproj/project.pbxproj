@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		194D0F24299F80F800C919D2 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D0F23299F80F800C919D2 /* Utilities.swift */; };
 		195458972955CDB100B226D4 /* MediaEditingAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195458962955CDB100B226D4 /* MediaEditingAppViewController.swift */; };
 		1954589F2955CFC100B226D4 /* WorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1954589E2955CFC100B226D4 /* WorkspaceView.swift */; };
-		195458A32955DDA100B226D4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195458A22955DDA100B226D4 /* Utilities.swift */; };
 		19B94D802955AC5600DCFD83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B94D7F2955AC5600DCFD83 /* AppDelegate.swift */; };
 		19B94D822955AC5600DCFD83 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B94D812955AC5600DCFD83 /* SceneDelegate.swift */; };
 		19B94D872955AC5600DCFD83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19B94D852955AC5600DCFD83 /* Main.storyboard */; };
@@ -18,9 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		194D0F23299F80F800C919D2 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		195458962955CDB100B226D4 /* MediaEditingAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaEditingAppViewController.swift; sourceTree = "<group>"; };
 		1954589E2955CFC100B226D4 /* WorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceView.swift; sourceTree = "<group>"; };
-		195458A22955DDA100B226D4 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = MediaEditingApp/Utilities.swift; sourceTree = SOURCE_ROOT; };
 		19B94D7C2955AC5600DCFD83 /* MediaEditingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaEditingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19B94D7F2955AC5600DCFD83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19B94D812955AC5600DCFD83 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,11 +44,11 @@
 		1954589C2955CF7900B226D4 /* Files */ = {
 			isa = PBXGroup;
 			children = (
+				194D0F23299F80F800C919D2 /* Utilities.swift */,
 				19B94D7F2955AC5600DCFD83 /* AppDelegate.swift */,
 				19B94D812955AC5600DCFD83 /* SceneDelegate.swift */,
 				19B94D882955AC5800DCFD83 /* Assets.xcassets */,
 				19B94D8A2955AC5800DCFD83 /* LaunchScreen.storyboard */,
-				195458A22955DDA100B226D4 /* Utilities.swift */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -179,7 +179,7 @@
 				1954589F2955CFC100B226D4 /* WorkspaceView.swift in Sources */,
 				19B94D802955AC5600DCFD83 /* AppDelegate.swift in Sources */,
 				195458972955CDB100B226D4 /* MediaEditingAppViewController.swift in Sources */,
-				195458A32955DDA100B226D4 /* Utilities.swift in Sources */,
+				194D0F24299F80F800C919D2 /* Utilities.swift in Sources */,
 				19B94D822955AC5600DCFD83 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
